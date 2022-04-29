@@ -1,0 +1,21 @@
+[tool.poetry]
+name = "e-shopping-website"
+version = "0.1.0"
+description = ""
+authors = ["Taher Khatieb <taher.khtieb@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+Django = "^4.0.4"
+djangorestframework = "^3.13.1"
+psycopg2 = "^2.9.3"
+django-cors-headers = "^3.11.0"
+
+[tool.poetry.dev-dependencies]
+pytest = "^5.2"
+mypy = "^0.942"
+autopep8 = "^1.6.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
