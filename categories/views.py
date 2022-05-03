@@ -1,13 +1,13 @@
 from rest_framework import generics
 from .serializers import CategoriesSerializer
-from .models import Categories
+from .models import Category
 
 
 class ShowCategoriesList(generics.ListCreateAPIView):
-    queryset = Categories.objects.all()
+    queryset = Category.objects.all()
     serializer_class = CategoriesSerializer
 
 
 class ShowCategory(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Categories.objects.all()
+    queryset = Category.objects.all()
     serializer_class = CategoriesSerializer

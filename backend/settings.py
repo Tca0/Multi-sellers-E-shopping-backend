@@ -39,9 +39,14 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'corsheaders',
+    'rest_framework.authtoken',
+    'dj_rest_auth',
+    'rest_framework_simplejwt',
+    # installed apps for project
     'categories',
     'products',
-    'store',
+    'addresses',
+    'users',
 ]
 
 MIDDLEWARE = [
@@ -81,7 +86,7 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'better-to-shop',
+        'NAME': 'multi-vendors-e-website',
         'HOST': 'localhost',
         'PORT': 5432
     }
@@ -128,3 +133,17 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',  # Our react app gets hosted on port `3000`
+]
+REST_FRAMEWORK = {
+    "DEFAULT_PERMISSION_CLASSES": [
+        "rest_framework.permissions.AllowAny"
+    ],
+    "DEFAULT_AUTHENTICATION_CLASSES": [
+        "rest_framework.authentication.SessionAuthentication",
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework_simplejwt.authentication.JWTAuthentication",
+    ]
+}
+AUTH_USER_MODEL = "users.CustomerOrVendor"
