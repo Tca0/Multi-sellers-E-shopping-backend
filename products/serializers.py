@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from products.models import Product
+from .models import Product
 #from categories.models import Categories
 
 
@@ -9,11 +9,12 @@ class ProductsSerializer(serializers.ModelSerializer):
         model = Product
         fields = "__all__"
 
-    # def create_product(self, data):
-     #   product = Product(**data)
-      #  request = self.context.get("request")
-       # print('request', request)
+    def create_product(self, data):
+        print(data)
+        #product = Product(**data)
+        request = self.context.get("request")
+        print('request', request)
         # if request and hasattr(request, "user"):
-        #   product.seller = request.user
+        #    product.seller = request.user
         # product.save()
-        # return product
+        return True
