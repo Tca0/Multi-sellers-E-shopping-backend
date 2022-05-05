@@ -42,13 +42,19 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'dj_rest_auth',
     'rest_framework_simplejwt',
+    # installed app for registration with dj-rest-auth requirements
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'dj_rest_auth.registration',
     # installed apps for project
     'categories',
     'products',
     'addresses',
     'users',
 ]
-
+SITE_ID = 1
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -144,4 +150,14 @@ REST_FRAMEWORK = {
         "rest_framework_simplejwt.authentication.JWTAuthentication",
     ]
 }
+# additional setting for customized user model and serializers
+ACCOUNT_AUTHENTICATION_METHOD = ('email', 'username')
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_UNIQUE_EMAIL = True
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 AUTH_USER_MODEL = "users.CustomerOrVendor"
+#AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
+REST_AUTH_REGISTER_SERIALIZERS = {
+    'REGISTER_SERIALIZER': 'users.serializers.TestRegisterSerializer'
+}
