@@ -1,7 +1,5 @@
 # Online Shopping website
 
-Lab project for python-backend with django
+Python-React full stack project
 
 # project lines and framework
-
-sellers --> different stores --> each store has products --> products classified in categories
