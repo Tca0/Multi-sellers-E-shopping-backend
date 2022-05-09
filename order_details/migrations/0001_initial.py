@@ -12,10 +12,15 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Category',
+            name='OrderDetails',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=50)),
+                ('order_number', models.CharField(blank=True, max_length=100, null=True)),
+                ('shipping_address', models.CharField(blank=True, max_length=500, null=True)),
+                ('created_at', models.DateField(auto_now_add=True, null=True)),
             ],
+            options={
+                'ordering': ['-created_at'],
+            },
         ),
     ]

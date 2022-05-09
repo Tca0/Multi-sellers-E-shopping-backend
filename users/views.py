@@ -1,5 +1,5 @@
 from rest_framework import generics
-from .serializers import RegisterUserSerializer, UpdateUserSerializer, ViewUserInfoSerializer
+from .serializers import RegisterUserSerializer, UpdateUserSerializer, ViewUserInfoSerializer, ViewUsersListSerializers
 from users.models import CustomerOrVendor
 from backend.permissions import IsCurrentUserWithRightRequest
 from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
@@ -22,3 +22,9 @@ class UserProfileView(generics.RetrieveAPIView):
     permission_classes = [IsAuthenticatedOrReadOnly]
     queryset = CustomerOrVendor.objects.all()
     serializer_class = ViewUserInfoSerializer
+
+
+class UsersListView(generics.ListAPIView):
+    #permission_classes = [IsAdminUser]
+    queryset = CustomerOrVendor.objects.all()
+    serializer_class = ViewUsersListSerializers

@@ -15,9 +15,8 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     # it should be entered manually for testing it and should be attached in the form by front end.
     class Meta:
         model = CustomerOrVendor
-        #fields = ('username', 'password', 'repeat_password', 'email', 'phone_number', 'is_vendor', 'is_staff')
         fields = ('username', 'password', 'repeat_password',
-                  'email', 'phone_number', 'is_vendor')
+                  'email', 'is_vendor')
     email = serializers.EmailField(
         required=True,
         validators=[UniqueValidator(queryset=CustomerOrVendor.objects.all())]
@@ -39,12 +38,12 @@ class RegisterUserSerializer(serializers.ModelSerializer):
     def create(self, data):
         user_password = data.pop('password')
         repeat_password = data.pop('repeat_password')
-        phone_number = data.pop("phone_number")
-        print(user_password, repeat_password, phone_number)
+        # phone_number = data.pop("phone_number")
+        print(user_password, repeat_password)
         print("remain data", data)
         user = CustomerOrVendor.objects.create(**data)
         user.set_password(user_password)
-        user.phone_number = phone_number
+        # user.phone_number = phone_number
         user.save()
         print('unsterilized password which arrived in JSON format from frontend',
               user_password)
@@ -85,6 +84,12 @@ class ViewUserInfoSerializer(serializers.ModelSerializer):
     class Meta:
         model = CustomerOrVendor
         fields = ('first_name', 'last_name', 'username')
+
+
+class ViewUsersListSerializers(serializers.ModelSerializer):
+    class Meta:
+        model = CustomerOrVendor
+        fields = ('id', 'username', 'email', 'is_vendor', 'store_name')
 
 
 class UserSerializer(serializers.ModelSerializer):

@@ -30,13 +30,5 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True, null=True)
     is_active = models.BooleanField(default=False)
 
-    # class Meta:
-    # not necessary to have it because django makes it plural and it will not effect on spelling
-    #verbose_name_plural = 'Products'
-    # ordering = ('-created_at',)  # ordering decending order
-
     def __str__(self):
-        return f"{self.name} - £{self.price}"
-
-    # def get_absolute_url(self):
-        return reverse('vendor:product_detail', args=[self.slug])
+        return f"{self.name} - {self.price}"

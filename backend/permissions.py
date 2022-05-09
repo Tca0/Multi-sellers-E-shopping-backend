@@ -3,6 +3,7 @@ from rest_framework import permissions
 
 class IsSeller(permissions.BasePermission):
     def has_permission(self, request, view):
+        print(request.user)
         print(request.user.is_vendor)
         return request.user.is_vendor and request.user.is_authenticated
 
