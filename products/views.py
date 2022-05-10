@@ -3,7 +3,7 @@ from rest_framework import generics
 from rest_framework.permissions import IsAdminUser
 from rest_framework.generics import GenericAPIView
 from products.models import Product
-from products.serializers import ShowProductsListSerializer, CreateProductSerializer, UpdateProductSerializer
+from products.serializers import ShowProductsListSerializer, CreateProductSerializer, UpdateProductSerializer, UpdateQuantityAndProductStatusAfterOrderSerializer
 from backend.permissions import IsSeller, IsProductOwner
 
 
@@ -23,3 +23,8 @@ class ShowProductView(generics.RetrieveUpdateDestroyAPIView):
     permission_classes = [IsProductOwner | IsAdminUser]
     queryset = Product.objects.all()
     serializer_class = UpdateProductSerializer
+
+
+class UpdatedInStockAndQuantityView(generics.RetrieveUpdateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = UpdateQuantityAndProductStatusAfterOrderSerializer

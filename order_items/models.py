@@ -3,14 +3,20 @@ from order_details.models import OrderDetails
 
 from products.models import Product
 
+#ORDERED_ITEM_CHOICES = ('PLACED', 'CANCELLED', 'FALSE')
+
 
 class OrderItems(models.Model):
     order = models.ForeignKey(
-        OrderDetails, related_name='items', on_delete=models.CASCADE)
+        OrderDetails, related_name='itemsList', on_delete=models.CASCADE)
     product = models.ForeignKey(
-        Product, related_name='items', on_delete=models.CASCADE)
-    price = models.DecimalField(max_digits=8, decimal_places=2)
-    quantity = models.IntegerField(default=1)
+        Product, related_name='product', on_delete=models.CASCADE)
+    price_per_unit = models.DecimalField(max_digits=8, decimal_places=2)
+    quantity = models.PositiveIntegerField(default=0)
+    subtotal = models.DecimalField(
+        max_digits=16, decimal_places=2, default=0)
+    # change status field name to approved
+    order_item_status = models.BooleanField(default=False)
 
     def __str__(self):
-        return '%s' % self.id
+        return self.order.order_number

@@ -1,7 +1,10 @@
+# from requests import Response
+from rest_framework.response import Response
+
 from rest_framework import serializers
 
 from .models import Product
-#from categories.models import Categories
+# from categories.models import Categories
 
 
 class ShowProductsListSerializer(serializers.ModelSerializer):
@@ -53,7 +56,7 @@ class UpdateProductSerializer(serializers.ModelSerializer):
                   'quantity', 'in_stock', 'is_active', 'category')
 
         def update(self, product, data):
-            product.name = data.get('username', product.name)
+            product.name = data.get('name', product.name)
             product.price = data.get('price', product.price)
             product.description = data.get('description', product.description)
             product.image = data.get('image', product.image)
@@ -66,7 +69,67 @@ class UpdateProductSerializer(serializers.ModelSerializer):
             return product
 
 
+class UpdateQuantityAndProductStatusAfterOrderSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = ('quantity',)
+
+    def update_quantity(self, product, data):
+        print("product to update after an order", product)
+        print("reduce by", data.get('quantity'))
+        if product.quantity > 0:
+            product.quantity -= data.get('quantity')
+        if product.quantity <= 0:
+            print("quantity 0, out of stock")
+            product.is_active = False
+            product.in_stock = False
+        product.save()
+        return product
+
+
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = '__all__'
+
+
+def update_quantity_in_stock(product, ordered_quantity):
+    print("----------------")
+    print("product update quantity function in product.serializers")
+    print("update qty fun in product serializer",
+          "\n product to update after an order", product)
+    print("product qty in db", product.quantity)
+    print("ordered item should be accepted")
+    print("quantity in db reduce by", ordered_quantity)
+    product.quantity -= ordered_quantity
+    print("new qyt in db:", product.quantity)
+
+    print("\n checking if product now is out of stock")
+    if product.quantity <= 0:
+        print("quantity 0, out of stock")
+        product.is_active = False
+        product.in_stock = False
+    product.save()
+    return product
+
+    if product.quantity > 0:
+        print("order available for ordering")
+
+        if product.quantity >= ordered_quantity:
+            print("ordered item should be accepted")
+            print("quantity in db reduce by", ordered_quantity)
+
+            product.quantity -= ordered_quantity
+            print("qyt in db reduced and new qyt is:", product.quantity)
+
+            print("\n checking if product now is out of stock")
+            if product.quantity <= 0:
+                print("quantity 0, out of stock")
+                product.is_active = False
+                product.in_stock = False
+            product.save()
+            return product
+        # else:
+        #    print("should return response")
+        #    print("ordered item should be rejected")
+        #    return False
