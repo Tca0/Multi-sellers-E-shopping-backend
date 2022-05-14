@@ -35,7 +35,7 @@ class ShowProductsListSerializer(serializers.ModelSerializer):
             return new_product
 
 
-class CreateProductSerializer(serializers.ModelSerializer):
+class ListCreateProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product
         fields = "__all__"
@@ -111,25 +111,3 @@ def update_quantity_in_stock(product, ordered_quantity):
         product.in_stock = False
     product.save()
     return product
-
-    if product.quantity > 0:
-        print("order available for ordering")
-
-        if product.quantity >= ordered_quantity:
-            print("ordered item should be accepted")
-            print("quantity in db reduce by", ordered_quantity)
-
-            product.quantity -= ordered_quantity
-            print("qyt in db reduced and new qyt is:", product.quantity)
-
-            print("\n checking if product now is out of stock")
-            if product.quantity <= 0:
-                print("quantity 0, out of stock")
-                product.is_active = False
-                product.in_stock = False
-            product.save()
-            return product
-        # else:
-        #    print("should return response")
-        #    print("ordered item should be rejected")
-        #    return False

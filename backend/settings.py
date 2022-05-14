@@ -54,7 +54,7 @@ INSTALLED_APPS = [
     'addresses',
     'users',
     'order_items',
-    'order_details'
+    'order_details',
 ]
 SITE_ID = 1
 MIDDLEWARE = [
@@ -162,7 +162,13 @@ ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 AUTH_USER_MODEL = "users.CustomerOrVendor"
-#AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
+# AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
 REST_AUTH_REGISTER_SERIALIZERS = {
     'REGISTER_SERIALIZER': 'users.serializers.TestRegisterSerializer'
+}
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(weeks=1),
+    'ALGORITHM': 'HS256',
+    'AUTH_HEADER_TYPES': ('Bearer',),
 }

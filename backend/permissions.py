@@ -10,7 +10,8 @@ class IsSeller(permissions.BasePermission):
 
 class IsProductOwner(permissions.BasePermission):
     def has_object_permission(self, request, view, obj):
-        return obj.seller == request.user and request.user.is_authenticated
+        return obj.seller == request.user
+    # and request.user.is_authenticated
 
 
 class IsCurrentUserWithRightRequest(permissions.BasePermission):

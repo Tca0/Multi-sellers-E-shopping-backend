@@ -9,13 +9,13 @@ from users.models import CustomerOrVendor
 class Product(models.Model):
     name = models.CharField(max_length=50)
     #slug = models.SlugField(max_length=50, blank=True, null=True)
-    price = models.FloatField(default=0.00)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0.00)
     description = models.TextField(max_length=300, blank=True, null=True)
     # for handling images needs to create different table as a product album
     # one to many relationship and installing pillow package to handle working with images
     #""""SOME ARTICLES SPEAK ABOUT ADDING STATIC URLS , MEDIA URLS & MEDIA ROOT"""""
     # CHECK IT WITH THE TEACHER FOR MORE INFORMATION
-    #image = models.ImageField(upload_to='uploads/products/')
+    # image = models.ImageField(upload_to='uploads/products/')
     image = models.CharField(
         max_length=200, default=None, blank=True, null=True)
     quantity = models.IntegerField(default=0)

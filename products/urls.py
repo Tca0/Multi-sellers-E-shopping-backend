@@ -1,8 +1,12 @@
 from django.urls import path
-from .views import ShowProductsListView, ShowProductView, CreateProductsView, UpdatedInStockAndQuantityView
+from .views import ShowProductsListView, ShowProductView, CreateProductsView
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+# ShowPSellerroductsListView
 urlpatterns = [
-    path('products_list', ShowProductsListView.as_view()),
-    path('add_new_product', CreateProductsView.as_view()),
+    path('', ShowProductsListView.as_view()),
     path('<int:pk>', ShowProductView.as_view()),
-    path('update/<int:pk>', UpdatedInStockAndQuantityView.as_view())
+    # seller routs
+    #path('seller', ShowPSellerroductsListView.as_view()),
+    path('seller', CreateProductsView.as_view()),
 ]
+urlpatterns += staticfiles_urlpatterns()
